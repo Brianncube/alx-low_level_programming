@@ -21,4 +21,4 @@ else
 	printf("%i\n", result);
 }
 return (0);
-}}
+}
