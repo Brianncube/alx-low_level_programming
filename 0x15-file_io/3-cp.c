@@ -60,11 +60,11 @@ int main(int argc, char *argv[])
 
 	if (argc != 3)
 	{
-		dprintf(STDERR_FILENO, "Usage: copy file_from file_to\n");
+		dprintf(STDERR_FILENO, "Usage: cp file from to file to\n");
 		exit(97);
 	}
 
-	buffer = create_buffer(argv[2]);
+	buffer = make_buffer(argv[2]);
 	from = open(argv[1], O_RDONLY);
 	rd = read(from, buffer, 1024);
 	to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
@@ -73,12 +73,12 @@ int main(int argc, char *argv[])
 		if (from == -1 || rd == -1)
 		{
 			dprintf(STDERR_FILENO,
-				"Error: Can't read from file %s\n", argv[1]);
+				"Error: Can't read file %s\n", argv[1]);
 			free(buffer);
 			exit(98);
 		}
 
-		w = write(to, buffer, r);
+		wd = write(to, buffer, rd);
 		if (to == -1 || wd == -1)
 		{
 			dprintf(STDERR_FILENO,
@@ -98,4 +98,3 @@ int main(int argc, char *argv[])
 
 	return (0);
 }
-
